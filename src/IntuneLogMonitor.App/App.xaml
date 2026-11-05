@@ -1,0 +1,13 @@
+﻿<Application x:Class="IntuneLogMonitor.App.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnMainWindowClose">
+    <Application.Resources>
+        <SolidColorBrush x:Key="WarningBackground" Color="#FFF4CE" />
+        <SolidColorBrush x:Key="WarningForeground" Color="#5C4400" />
+        <SolidColorBrush x:Key="ErrorBackground" Color="#FDE7E9" />
+        <SolidColorBrush x:Key="ErrorForeground" Color="#A4262C" />
+        <SolidColorBrush x:Key="MarkerBackground" Color="#E5F1FB" />
+        <SolidColorBrush x:Key="MarkerForeground" Color="#004E8C" />
+    </Application.Resources>
+</Application>

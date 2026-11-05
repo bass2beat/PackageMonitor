@@ -1,0 +1,26 @@
+Package Monitor – Dirk
+==============================
+Version 0.1 (05.11.2026)
+
+Start:  PackageMonitor.exe doppelklicken.
+        Es muss nichts installiert werden (.NET ist enthalten). Voraussetzung: Windows 10/11 x64.
+
+Update einer älteren Version (früher "IntuneLogMonitor.App.exe"):
+  Alten Ordner löschen und diesen Ordner komplett verwenden (exe UND appsettings.json).
+  Eine alte appsettings.json enthält veraltete Muster und überschreibt die neuen Standardwerte.
+
+Administratorrechte:
+  Ohne Adminrechte läuft alles außer der Größenmessung von C:\Windows\IMECache.
+  Für diesen Wert: Rechtsklick auf die exe → "Als Administrator ausführen".
+
+Cache-Größen:
+  Werden alle 5 Sekunden gemessen (CacheRefreshIntervalSeconds) und zeigen die tatsächlich belegten Bytes.
+  Delivery Optimization legt Downloads als Sparse-Dateien in Endgröße an; "reserviert" ist diese Endgröße.
+  "IME Staging" ist nur kurz während Entschlüsseln/Entpacken gefüllt.
+
+Einstellungen:
+  appsettings.json im selben Ordner (Logpfad, Muster, Timeouts, Cache-Ordner, Abfrageintervalle).
+  Änderungen werden beim nächsten Start übernommen.
+
+Andere Logdatei überwachen (z. B. eine kopierte Datei):
+  PackageMonitor.exe --logfile "D:\Logs\AppWorkload.log"

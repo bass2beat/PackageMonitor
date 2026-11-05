@@ -1,0 +1,2 @@
+# Logdateien byte-genau speichern (Tests prüfen Lesepositionen)
+*.log -text

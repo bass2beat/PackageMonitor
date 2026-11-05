@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+*.user
+TestResults/
+
+# Build-Ergebnisse (exe/zip lassen sich aus dem Quellcode neu erzeugen)
+publish/*
+!publish/PackageMonitor/
+publish/PackageMonitor/*
+!publish/PackageMonitor/LIESMICH.txt
