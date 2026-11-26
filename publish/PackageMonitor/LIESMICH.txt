@@ -1,6 +1,6 @@
 Package Monitor – Dirk
 ==============================
-Version 0.1 (05.11.2026)
+Version 0.2 (in Arbeit)
 
 Start:  PackageMonitor.exe doppelklicken.
         Es muss nichts installiert werden (.NET ist enthalten). Voraussetzung: Windows 10/11 x64.

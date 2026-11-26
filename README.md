@@ -1,6 +1,6 @@
 # Package Monitor – Bereich C (AppWorkload-Downloads)
 
-**Version 0.1** (05.11.2026)
+**Version 0.2** (in Arbeit)
 
 WPF-Anwendung (.NET 10), die `AppWorkload.log` der Intune Management Extension live verfolgt und Downloads über eine Zustandsmaschine auswertet.
 
