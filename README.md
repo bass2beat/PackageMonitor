@@ -1,6 +1,6 @@
-# Package Monitor – Bereich C (AppWorkload-Downloads)
+# PackageMonitor v0.2 by DPS – Bereich C (AppWorkload-Downloads)
 
-**Version 0.2** (in Arbeit)
+**Version 0.2** (26.11.2026) – eine einzelne exe ohne appsettings.json; alle Einstellungen sind die Standardwerte in `src/IntuneLogMonitor.Core/Options.cs`.
 
 WPF-Anwendung (.NET 10), die `AppWorkload.log` der Intune Management Extension live verfolgt und Downloads über eine Zustandsmaschine auswertet.
 
@@ -9,7 +9,7 @@ WPF-Anwendung (.NET 10), die `AppWorkload.log` der Intune Management Extension l
 | Pfad | Inhalt |
 |---|---|
 | `src/IntuneLogMonitor.Core` | Tail-Reader mit Rollover-Erkennung, CMTrace-Parser, Download-Zustandsmaschine, Monitor-Pipeline |
-| `src/IntuneLogMonitor.App` | WPF-Oberfläche (Tab „Bereich C“), `appsettings.json` |
+| `src/IntuneLogMonitor.App` | WPF-Oberfläche (Tab „Bereich C“) |
 | `tests/IntuneLogMonitor.Core.Tests` | xUnit-Tests (Parser, Zustandsmaschine, Tail/Rollover gegen echtes Dateisystem, End-to-End) |
 | `tools/IntuneLogMonitor.LogSimulator` | Erzeugt die Beispiel-Logs und spielt das Szenario live ab (inkl. echtem Rollover) |
 | `samples/` | Synthetische Beispiel-Logs: `AppWorkload-20261105-090221.log` (vor Rollover) + `AppWorkload.log` (aktiv) |
@@ -28,7 +28,7 @@ dotnet test tests/IntuneLogMonitor.Core.Tests
 dotnet run --project src/IntuneLogMonitor.App
 ```
 
-Der Logpfad steht in `src/IntuneLogMonitor.App/appsettings.json` und lässt sich per `--logfile <Pfad>` überschreiben.
+Der Logpfad steht in `Options.cs` (`AppWorkloadMonitorOptions.LogFilePath`) und lässt sich per `--logfile <Pfad>` überschreiben.
 
 ## Live-Demo mit Rollover
 
@@ -65,9 +65,9 @@ Oben in Bereich C (Standard: alle 30 s, Button „Aktualisieren“). Abgefragt w
 - **Peers verbunden:** Summe `NumPeers` über alle Jobs aus `Get-DeliveryOptimizationStatus`, dazu die Verbindungen nach LAN, Gruppe, Internet und Link-Local sowie HTTP/CDN und Connected Cache.
 - **Daten über DO:** heruntergeladen gesamt, davon von Peers (in %, aufgeteilt nach Peer-Art), von HTTP/CDN (davon Connected Cache) und an Peers hochgeladen. Eine Tabelle aller DO-Jobs lässt sich aufklappen.
 - **DO-Dienst gesamt:** Werte aus `Get-DeliveryOptimizationPerfSnap`, darunter die Cache-Größe aus Sicht des DO-Dienstes.
-- **Cache-Größen (gemessen auf dem Datenträger):** DO-Cache, IME `Content\Incoming`, IME `Content\Staging` und `C:\Windows\IMECache`. Die Ordner sind in `DeliveryOptimization:CacheFolders` konfigurierbar, Umgebungsvariablen sind erlaubt. `IMECache` lässt sich nur mit Administratorrechten lesen. Ohne diese Rechte zeigt die App „Zugriff verweigert – als Administrator starten“.
+- **Cache-Größen (gemessen auf dem Datenträger):** DO-Cache, IME `Content\Incoming`, IME `Content\Staging` und `C:\Windows\IMECache`. Die Ordner stehen in `DeliveryOptimizationOptions.DefaultCacheFolders` (Umgebungsvariablen wie `%windir%` werden aufgelöst). `IMECache` lässt sich nur mit Administratorrechten lesen. Ohne diese Rechte zeigt die App „Zugriff verweigert – als Administrator starten“.
 
-## Schaltbare Regeln der Zustandsmaschine (`Tracking`)
+## Schaltbare Regeln der Zustandsmaschine (`DownloadTrackingOptions`, im Code)
 
 | Einstellung | Standard | Wirkung |
 |---|---|---|

@@ -2,7 +2,7 @@ using IntuneLogMonitor.Core;
 
 namespace IntuneLogMonitor.Core.Tests;
 
-/// <summary>Schaltbare Regeln der Zustandsmaschine (appsettings.json → Tracking).</summary>
+/// <summary>Schaltbare Regeln der Zustandsmaschine (DownloadTrackingOptions).</summary>
 public class TrackerSwitchTests
 {
     private const string App = "3f1c6b0e-8a5d-4c2e-9b71-2d4e6a8c0f11";

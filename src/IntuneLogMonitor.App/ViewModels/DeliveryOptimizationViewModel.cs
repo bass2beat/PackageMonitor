@@ -70,7 +70,7 @@ public sealed class DeliveryOptimizationViewModel : ObservableObject, IAsyncDisp
     public bool HasReport => _report is not null;
 
     public string StateText =>
-        !_enabled ? "Abfrage deaktiviert (appsettings.json)"
+        !_enabled ? "Abfrage deaktiviert"
         : _isRefreshing ? "Wird abgefragt …"
         : _report is null ? ""
         : $"Stand {_report.CollectedAt:HH:mm:ss}";

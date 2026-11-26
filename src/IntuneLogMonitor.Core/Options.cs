@@ -1,7 +1,7 @@
 namespace IntuneLogMonitor.Core;
 
 /// <summary>
-/// Konfiguration für Bereich C (Abschnitt "AppWorkloadMonitor" in appsettings.json).
+/// Konfiguration für Bereich C. Die Standardwerte sind die festen Einstellungen der App.
 /// </summary>
 public sealed class AppWorkloadMonitorOptions
 {
