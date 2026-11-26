@@ -132,8 +132,8 @@ public sealed class LogFileTailer : IDisposable
 
         FileSwitched?.Invoke(new FileSwitchInfo(_path, truncation ? null : renamedTo, oldFileBytes, truncation));
         ReportStatus(truncation
-            ? "Datei wurde gekürzt – lese ab Anfang."
-            : $"Rollover erkannt{(renamedTo is null ? "" : $" (alte Datei: {Path.GetFileName(renamedTo)})")} – lese neue Datei ab Position 0.");
+            ? "File was truncated – reading from the beginning."
+            : $"Rollover detected{(renamedTo is null ? "" : $" (old file: {Path.GetFileName(renamedTo)})")} – reading the new file from position 0.");
 
         if (TryOpen(isSwitch: true))
             ReadAvailable(final: false);
@@ -157,17 +157,17 @@ public sealed class LogFileTailer : IDisposable
                 _position = Math.Max(_position, stream.Length);
             }
             _firstOpen = false;
-            ReportStatus($"Überwache {_path}");
+            ReportStatus($"Monitoring {_path}");
             return true;
         }
         catch (Exception ex) when (ex is FileNotFoundException or DirectoryNotFoundException)
         {
-            ReportStatus($"Datei nicht vorhanden – warte auf {_path}");
+            ReportStatus($"File does not exist – waiting for {_path}");
             return false;
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
-            ReportStatus($"Datei kann nicht geöffnet werden: {ex.Message}");
+            ReportStatus($"File cannot be opened: {ex.Message}");
             return false;
         }
     }
@@ -275,13 +275,13 @@ public sealed class LogFileTailer : IDisposable
             w.Created += (_, e) => { if (PathEquals(e.FullPath, _path)) Signal(); };
             w.Deleted += (_, e) => { if (PathEquals(e.FullPath, _path)) Signal(); };
             w.Changed += (_, e) => { if (PathEquals(e.FullPath, _path)) Signal(); };
-            w.Error += (_, e) => { ReportStatus($"FileSystemWatcher-Fehler: {e.GetException().Message} – periodische Prüfung läuft weiter."); Signal(); };
+            w.Error += (_, e) => { ReportStatus($"FileSystemWatcher error: {e.GetException().Message} – periodic check continues."); Signal(); };
             w.EnableRaisingEvents = true;
             _watcher = w;
         }
         catch (Exception ex) when (ex is IOException or ArgumentException or UnauthorizedAccessException)
         {
-            ReportStatus($"FileSystemWatcher nicht verfügbar ({ex.Message}) – nur periodische Prüfung.");
+            ReportStatus($"FileSystemWatcher not available ({ex.Message}) – periodic check only.");
         }
     }
 

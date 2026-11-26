@@ -20,7 +20,7 @@
 
     <StackPanel>
         <DockPanel Margin="0,0,0,4">
-            <Button DockPanel.Dock="Right" Padding="8,1" Content="Aktualisieren" Command="{Binding RefreshCommand}" />
+            <Button DockPanel.Dock="Right" Padding="8,1" Content="Refresh" Command="{Binding RefreshCommand}" />
             <TextBlock DockPanel.Dock="Right" Margin="0,0,10,0" VerticalAlignment="Center" Foreground="Gray" Text="{Binding StateText}" />
             <TextBlock />
         </DockPanel>
@@ -47,23 +47,23 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Style="{StaticResource Label}" Text="Peers verbunden" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource Label}" Text="Peers connected" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Value}"
-                               ToolTip="Summe von NumPeers über alle Jobs aus Get-DeliveryOptimizationStatus">
+                               ToolTip="Sum of NumPeers over all jobs from Get-DeliveryOptimizationStatus">
                         <Run Text="{Binding PeersConnectedText, Mode=OneWay}" FontWeight="SemiBold" FontSize="15" />
                         <Run Text="{Binding PeersDetailText, Mode=OneWay}" Foreground="Gray" />
                     </TextBlock>
-                    <TextBlock Grid.Row="1" Style="{StaticResource Label}" Text="Peer-Verbindungen" />
+                    <TextBlock Grid.Row="1" Style="{StaticResource Label}" Text="Peer connections" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding PeerConnectionsText}" />
-                    <TextBlock Grid.Row="2" Style="{StaticResource Label}" Text="Quellen-Verbindungen" />
+                    <TextBlock Grid.Row="2" Style="{StaticResource Label}" Text="Source connections" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding SourceConnectionsText}" />
                     <TextBlock Grid.Row="3" Style="{StaticResource Label}" Text="Jobs" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding JobsText}" />
                 </Grid>
             </GroupBox>
 
-            <!-- Datenmengen -->
-            <GroupBox Grid.Column="2" Header="Daten über Delivery Optimization" Padding="6,4">
+            <!-- Data volumes -->
+            <GroupBox Grid.Column="2" Header="Data via Delivery Optimization" Padding="6,4">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -76,28 +76,28 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Style="{StaticResource Label}" Text="Heruntergeladen" />
+                    <TextBlock Grid.Row="0" Style="{StaticResource Label}" Text="Downloaded" />
                     <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Value}" FontWeight="SemiBold" FontSize="15" Text="{Binding TotalDownloadedText}" />
-                    <TextBlock Grid.Row="1" Style="{StaticResource Label}" Text="von Peers" />
+                    <TextBlock Grid.Row="1" Style="{StaticResource Label}" Text="from peers" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding FromPeersText}" ToolTip="{Binding FromPeersDetailText}" />
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource Value}" Foreground="Gray" FontSize="11" Text="{Binding FromPeersDetailText}" />
-                    <TextBlock Grid.Row="3" Style="{StaticResource Label}" Text="von HTTP/CDN" />
+                    <TextBlock Grid.Row="3" Style="{StaticResource Label}" Text="from HTTP/CDN" />
                     <TextBlock Grid.Row="3" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding FromHttpText}" />
-                    <TextBlock Grid.Row="4" Style="{StaticResource Label}" Text="an Peers hochgeladen" />
+                    <TextBlock Grid.Row="4" Style="{StaticResource Label}" Text="uploaded to peers" />
                     <TextBlock Grid.Row="4" Grid.Column="1" Style="{StaticResource Value}" Text="{Binding UploadedText}" />
                 </Grid>
             </GroupBox>
 
-            <!-- Cache-Größen -->
+            <!-- Cache sizes -->
             <GroupBox Grid.Column="4" Padding="6,4">
                 <GroupBox.Header>
                     <TextBlock>
-                        <Run Text="Cache-Größen (belegt auf Datenträger)" />
+                        <Run Text="Cache sizes (used on disk)" />
                         <Run Text="{Binding FoldersStateText, Mode=OneWay}" Foreground="Gray" />
                     </TextBlock>
                 </GroupBox.Header>
                 <StackPanel
-                    ToolTip="Belegte Bytes; DO legt Downloads als Sparse-Dateien in Endgröße an – 'reserviert' ist diese Endgröße. Staging ist nur kurz während Entschlüsseln/Entpacken gefüllt.">
+                    ToolTip="Bytes used on disk. DO creates downloads as sparse files at their final size; 'reserved' is that final size. Staging is only filled briefly while decrypting/unpacking.">
                     <ItemsControl ItemsSource="{Binding Folders}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -126,7 +126,7 @@
         </Grid>
 
         <TextBlock Margin="0,6,0,0" Foreground="Gray" TextWrapping="Wrap">
-            <Run Text="DO-Dienst gesamt (Get-DeliveryOptimizationPerfSnap):" />
+            <Run Text="DO service total (Get-DeliveryOptimizationPerfSnap):" />
             <Run Text="{Binding PerfSnapText, Mode=OneWay}" />
         </TextBlock>
 
@@ -149,16 +149,16 @@
                       EnableRowVirtualization="True" VirtualizingPanel.IsVirtualizing="True">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="90" />
-                    <DataGridTextColumn Header="Anwendung" Binding="{Binding PredefinedCallerApplication}" Width="170" />
-                    <DataGridTextColumn Header="Größe" Binding="{Binding FileSize, Converter={x:Static vm:BytesConverter.Instance}}" Width="85" />
-                    <DataGridTextColumn Header="Geladen" Binding="{Binding Percent, StringFormat={}{0:0.0} %}" Width="65" />
+                    <DataGridTextColumn Header="Application" Binding="{Binding PredefinedCallerApplication}" Width="170" />
+                    <DataGridTextColumn Header="Size" Binding="{Binding FileSize, Converter={x:Static vm:BytesConverter.Instance}}" Width="85" />
+                    <DataGridTextColumn Header="Loaded" Binding="{Binding Percent, StringFormat={}{0:0.0} %}" Width="65" />
                     <DataGridTextColumn Header="Peers" Binding="{Binding NumPeers}" Width="50" />
-                    <DataGridTextColumn Header="Von Peers" Binding="{Binding BytesFromPeers, Converter={x:Static vm:BytesConverter.Instance}}" Width="85" />
+                    <DataGridTextColumn Header="From peers" Binding="{Binding BytesFromPeers, Converter={x:Static vm:BytesConverter.Instance}}" Width="85" />
                     <DataGridTextColumn Header="HTTP" Binding="{Binding BytesFromHttp, Converter={x:Static vm:BytesConverter.Instance}}" Width="85" />
                     <DataGridTextColumn Header="Connected Cache" Binding="{Binding BytesFromCacheServer, Converter={x:Static vm:BytesConverter.Instance}}" Width="105" />
-                    <DataGridTextColumn Header="An Peers" Binding="{Binding BytesToPeers, Converter={x:Static vm:BytesConverter.Instance}}" Width="80" />
-                    <DataGridTextColumn Header="Modus" Binding="{Binding DownloadMode}" Width="70" />
-                    <DataGridTextColumn Header="Priorität" Binding="{Binding Priority}" Width="80" />
+                    <DataGridTextColumn Header="To peers" Binding="{Binding BytesToPeers, Converter={x:Static vm:BytesConverter.Instance}}" Width="80" />
+                    <DataGridTextColumn Header="Mode" Binding="{Binding DownloadMode}" Width="70" />
+                    <DataGridTextColumn Header="Priority" Binding="{Binding Priority}" Width="80" />
                     <DataGridTextColumn Header="FileId" Binding="{Binding FileId}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>

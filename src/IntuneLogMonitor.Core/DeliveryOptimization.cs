@@ -132,12 +132,12 @@ public sealed record FolderSize(
     public static FolderSize Denied(string name, string path) => new(name, path, true, 0, 0, 0, 0, true, 0, null);
 
     public string DisplayText =>
-        AccessDenied ? "Zugriff verweigert – als Administrator starten"
-        : Error is not null ? $"Fehler: {Error}"
-        : !Exists ? "Ordner nicht vorhanden"
-        : $"{Formatting.FormatBytes(Bytes)} ({Files:N0} Dateien)"
-          + (LogicalBytes > Bytes ? $" · reserviert {Formatting.FormatBytes(LogicalBytes)}" : "")
-          + (InaccessibleSubfolders > 0 ? $" – {InaccessibleSubfolders} Unterordner nicht lesbar, Wert unvollständig" : "");
+        AccessDenied ? "Access denied – run as administrator"
+        : Error is not null ? $"Error: {Error}"
+        : !Exists ? "Folder does not exist"
+        : $"{Formatting.FormatBytes(Bytes)} ({Files:N0} files)"
+          + (LogicalBytes > Bytes ? $" · reserved {Formatting.FormatBytes(LogicalBytes)}" : "")
+          + (InaccessibleSubfolders > 0 ? $" – {InaccessibleSubfolders} subfolder(s) not readable, value incomplete" : "");
 }
 
 /// <summary>Ergebnis einer Abfrage.</summary>

@@ -88,8 +88,8 @@ public class DownloadTrackerTests
         var d = Single();
         Assert.Equal(DownloadStatus.Running, d.Status);
         Assert.Null(d.EndSequence);
-        Assert.DoesNotContain(d.Notes, n => n.StartsWith("Keine Gesamtgröße"));
-        Assert.Contains(d.Notes, n => n.Contains("über App-ID"));
+        Assert.DoesNotContain(d.Notes, n => n.StartsWith("No total size"));
+        Assert.Contains(d.Notes, n => n.Contains("matched by app ID"));
 
         Feed(10, Bytes(1000, 1000, AppA));
         Assert.Equal(DownloadStatus.Completed, Single().Status);
@@ -117,7 +117,7 @@ public class DownloadTrackerTests
 
         var d = Single();
         Assert.Equal(DownloadStatus.Started, d.Status);
-        Assert.Equal("Gestartet", d.StatusText);
+        Assert.Equal("Started", d.StatusText);
         Assert.Equal(AppA, d.AppId);
         Assert.Equal("Contoso Agent 4.2", d.AppName);
         Assert.Equal(T0, d.StartTime);
@@ -157,7 +157,7 @@ public class DownloadTrackerTests
 
         var d = Single();
         Assert.Equal(DownloadStatus.Incomplete, d.Status);
-        Assert.Contains(d.Notes, n => n.Contains("Gesamtgröße"));
+        Assert.Contains(d.Notes, n => n.Contains("total size"));
 
         // Später auftauchende Größe wird nicht mehr zugeordnet.
         Feed(10, Bytes(0, 1000));
@@ -301,7 +301,7 @@ public class DownloadTrackerTests
         Assert.Equal(300, Get(2).CurrentBytes);
         Assert.Equal(0, Get(1).CurrentBytes);
         Assert.Equal(1, Get(2).AmbiguousAssignments);
-        Assert.Contains(Get(2).Notes, n => n.Contains("nicht eindeutig"));
+        Assert.Contains(Get(2).Notes, n => n.Contains("ambiguous"));
     }
 
     [Fact]
@@ -314,7 +314,7 @@ public class DownloadTrackerTests
 
         var old = Get(1);
         Assert.Equal(DownloadStatus.Restarted, old.Status);
-        Assert.Equal("Abgebrochen/Neu gestartet", old.StatusText);
+        Assert.Equal("Cancelled/restarted", old.StatusText);
         Assert.Equal(restart.Sequence, old.EndSequence);
         Assert.Equal(DownloadStatus.Started, Get(2).Status);
 
@@ -344,7 +344,7 @@ public class DownloadTrackerTests
 
         Feed(2 + 10 * 60 + 1, "irgendeine Zeile");
         Assert.Equal(DownloadStatus.NoActivity, Single().Status);
-        Assert.Equal("Keine Aktivität", Single().StatusText);
+        Assert.Equal("No activity", Single().StatusText);
     }
 
     [Fact]

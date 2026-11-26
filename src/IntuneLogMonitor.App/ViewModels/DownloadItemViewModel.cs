@@ -20,7 +20,7 @@ public sealed class DownloadItemViewModel : ObservableObject
     public int Id => _snapshot.Id;
     public DownloadStatus Status => _snapshot.Status;
     public string StatusText => _snapshot.StatusText;
-    public string StartTimeText => _snapshot.StartTime?.ToString("dd.MM. HH:mm:ss") ?? "";
+    public string StartTimeText => _snapshot.StartTime?.ToString("yyyy-MM-dd HH:mm:ss") ?? "";
     public string AppId => _snapshot.AppId ?? "";
     public string AppName => _snapshot.AppName ?? "";
 

@@ -103,7 +103,7 @@ public class DeliveryOptimizationTests
             Assert.False(r.AccessDenied);
             Assert.Equal(4000, r.Bytes);
             Assert.Equal(3, r.Files);
-            Assert.Contains("Dateien", r.DisplayText);
+            Assert.Contains("files", r.DisplayText);
         }
         finally
         {
@@ -116,7 +116,7 @@ public class DeliveryOptimizationTests
     {
         var r = FolderSizeCalculator.Measure("X", @"%TEMP%\gibt-es-nicht-" + Guid.NewGuid());
         Assert.False(r.Exists);
-        Assert.Equal("Ordner nicht vorhanden", r.DisplayText);
+        Assert.Equal("Folder does not exist", r.DisplayText);
         Assert.DoesNotContain("%TEMP%", r.Path); // Umgebungsvariable aufgelöst
     }
 
@@ -124,7 +124,7 @@ public class DeliveryOptimizationTests
     public void AccessDeniedFolderShowsAdminHint()
     {
         var r = FolderSize.Denied("IMECache", @"C:\Windows\IMECache");
-        Assert.Equal("Zugriff verweigert – als Administrator starten", r.DisplayText);
+        Assert.Equal("Access denied – run as administrator", r.DisplayText);
     }
 
     /// <summary>
@@ -161,7 +161,7 @@ public class DeliveryOptimizationTests
             var during = FolderSizeCalculator.Measure("DO", dir);
             Assert.Equal(finalSize, during.LogicalBytes);                       // Länge unverändert
             Assert.InRange(during.Bytes, 16L * 1024 * 1024, 17L * 1024 * 1024); // belegte Größe gewachsen
-            Assert.Contains("reserviert", during.DisplayText);
+            Assert.Contains("reserved", during.DisplayText);
         }
         finally
         {

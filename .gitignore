@@ -8,7 +8,7 @@ TestResults/
 publish/*
 !publish/PackageMonitor/
 publish/PackageMonitor/*
-!publish/PackageMonitor/LIESMICH.txt
+!publish/PackageMonitor/README.txt
 
 # Echte Kundenlogs – nur lokal, nie veröffentlichen
 Real-Data-as-Template/

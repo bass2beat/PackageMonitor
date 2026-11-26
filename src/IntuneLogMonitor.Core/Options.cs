@@ -53,10 +53,10 @@ public sealed class DeliveryOptimizationOptions
 
     public static IReadOnlyList<CacheFolderOptions> DefaultCacheFolders { get; } =
     [
-        new() { Name = "Delivery-Optimization-Cache", Path = @"%windir%\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache" },
-        new() { Name = "IME Download (Incoming)", Path = @"%ProgramFiles(x86)%\Microsoft Intune Management Extension\Content\Incoming" },
-        new() { Name = "IME Staging", Path = @"%ProgramFiles(x86)%\Microsoft Intune Management Extension\Content\Staging" },
-        new() { Name = "IME Paketcache (IMECache)", Path = @"%windir%\IMECache" },
+        new() { Name = "Delivery Optimization cache", Path = @"%windir%\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache" },
+        new() { Name = "IME download (incoming)", Path = @"%ProgramFiles(x86)%\Microsoft Intune Management Extension\Content\Incoming" },
+        new() { Name = "IME staging", Path = @"%ProgramFiles(x86)%\Microsoft Intune Management Extension\Content\Staging" },
+        new() { Name = "IME package cache (IMECache)", Path = @"%windir%\IMECache" },
     ];
 
     public IReadOnlyList<CacheFolderOptions> EffectiveCacheFolders => CacheFolders.Count > 0 ? CacheFolders : DefaultCacheFolders;

@@ -42,7 +42,7 @@ public sealed class DownloadTracker
             : new Regex(options.AppNamePattern, opts, RegexTimeout);
 
         if (_progressRegex.GroupNumberFromName("current") < 0 || _progressRegex.GroupNumberFromName("total") < 0)
-            throw new ArgumentException("ProgressPattern muss die benannten Gruppen 'current' und 'total' enthalten.", nameof(options));
+            throw new ArgumentException("ProgressPattern must contain the named groups 'current' and 'total'.", nameof(options));
     }
 
     public IReadOnlyList<DownloadSnapshot> Downloads => _downloads.Select(d => d.ToSnapshot()).ToList();
@@ -136,7 +136,7 @@ public sealed class DownloadTracker
             else if (d.Status == DownloadStatus.Started && _options.MarkStalledStartsIncomplete)
             {
                 d.Status = DownloadStatus.Incomplete;
-                d.Notes.Add($"Gesamtgröße nicht ermittelt, keine Aktivität seit {last:HH:mm:ss}");
+                d.Notes.Add($"Total size not determined, no activity since {last:HH:mm:ss}");
                 _changed.Add(d);
             }
         }
@@ -156,7 +156,7 @@ public sealed class DownloadTracker
                     old.Status = DownloadStatus.Restarted;
                     old.EndTime = entry.Timestamp;
                     old.EndSequence = entry.Sequence;
-                    old.Notes.Add($"Neuer Startmarker für dieselbe App-ID in Zeile #{entry.Sequence}");
+                    old.Notes.Add($"New start marker for the same app ID in line #{entry.Sequence}");
                     _changed.Add(old);
                 }
             }
@@ -179,7 +179,7 @@ public sealed class DownloadTracker
     }
 
     /// <summary>Phase 2: Gesamtgröße einem wartenden Download zuordnen.</summary>
-    private string WindowExpiredNote => $"Keine Gesamtgröße in den {_options.TotalSizeSearchWindow} Folgezeilen gefunden";
+    private string WindowExpiredNote => $"No total size found in the next {_options.TotalSizeSearchWindow} lines";
 
     /// <summary>Wartet auf die Gesamtgröße: Phase 1, oder nur wegen des Suchfensters unvollständig (über App-ID rettbar).</summary>
     private static bool IsAwaitingTotal(DownloadState d) =>
@@ -210,7 +210,7 @@ public sealed class DownloadTracker
             target.EndTime = null;
             target.EndSequence = null;
             target.Notes.Remove(WindowExpiredNote);
-            target.Notes.Add($"Gesamtgröße erst nach dem Suchfenster gefunden (Zuordnung über App-ID, Zeile #{entry.Sequence})");
+            target.Notes.Add($"Total size found only after the search window (matched by app ID, line #{entry.Sequence})");
         }
 
         target.TotalBytes = total;
@@ -269,7 +269,7 @@ public sealed class DownloadTracker
         if (d.Status == DownloadStatus.NoActivity)
         {
             d.Status = DownloadStatus.Running;
-            d.Notes.Add($"Aktivität ab Zeile #{entry.Sequence} wieder aufgenommen");
+            d.Notes.Add($"Activity resumed from line #{entry.Sequence}");
         }
 
         if (entry.Timestamp is { } t)

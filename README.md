@@ -42,7 +42,7 @@ Refreshed every 5 seconds, so you can watch them grow during a download:
 | IME staging | `C:\Program Files (x86)\Microsoft Intune Management Extension\Content\Staging` |
 | IME package cache | `C:\Windows\IMECache` |
 
-The sizes show the space really used on disk. Delivery Optimization creates each download file at its final size right away and then fills it, so the file size alone would not change during a download. The final size is shown separately as "reserviert" (reserved).
+The sizes show the space really used on disk. Delivery Optimization creates each download file at its final size right away and then fills it, so the file size alone would not change during a download. The final size is shown separately as "reserved".
 
 ## With or without admin rights
 
@@ -53,13 +53,12 @@ PackageMonitor can be started **with or without** administrator rights.
 | App downloads and log viewer | ✔ | ✔ |
 | Delivery Optimization summary | ✔ | ✔ |
 | Cache sizes: DO cache, IME incoming, IME staging | ✔ | ✔ |
-| Cache size: `C:\Windows\IMECache` | – shows "Zugriff verweigert – als Administrator starten" (access denied) | ✔ |
+| Cache size: `C:\Windows\IMECache` | – not readable: shows "Access denied – run as administrator" or "subfolder(s) not readable, value incomplete" | ✔ |
 
 To start it with admin rights: right-click `PackageMonitor.exe` → **Run as administrator**.
 
 ## Good to know
 
-- The user interface is in German.
 - PackageMonitor only reads. It does not change, delete or restart anything on the client.
 - To view a log file copied from another device:
 

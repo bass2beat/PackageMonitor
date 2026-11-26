@@ -163,7 +163,7 @@ public sealed class DeliveryOptimizationMonitor : IAsyncDisposable
         }
         catch (Exception ex)
         {
-            errors.Add($"DO-Abfrage fehlgeschlagen: {ex.Message}");
+            errors.Add($"DO query failed: {ex.Message}");
         }
 
         List<FolderSize> folders;
@@ -200,7 +200,7 @@ public sealed class DeliveryOptimizationMonitor : IAsyncDisposable
         foreach (var a in new[] { "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-EncodedCommand", encoded })
             psi.ArgumentList.Add(a);
 
-        using var process = Process.Start(psi) ?? throw new InvalidOperationException("PowerShell konnte nicht gestartet werden.");
+        using var process = Process.Start(psi) ?? throw new InvalidOperationException("PowerShell could not be started.");
         using var timeout = CancellationTokenSource.CreateLinkedTokenSource(ct);
         timeout.CancelAfter(TimeSpan.FromSeconds(Math.Max(5, options.CommandTimeoutSeconds)));
 
@@ -214,7 +214,7 @@ public sealed class DeliveryOptimizationMonitor : IAsyncDisposable
         {
             try { process.Kill(entireProcessTree: true); } catch (InvalidOperationException) { }
             if (ct.IsCancellationRequested) throw;
-            throw new TimeoutException($"PowerShell hat nicht innerhalb von {options.CommandTimeoutSeconds} s geantwortet.");
+            throw new TimeoutException($"PowerShell did not respond within {options.CommandTimeoutSeconds} s.");
         }
 
         string output = (await stdout.ConfigureAwait(false)).Trim();
@@ -222,7 +222,7 @@ public sealed class DeliveryOptimizationMonitor : IAsyncDisposable
         // Erste Zeile, die wie JSON aussieht (falls Profile/Warnungen etwas davor schreiben)
         int start = output.IndexOf('{');
         if (start < 0)
-            throw new InvalidOperationException(string.IsNullOrEmpty(error) ? "Keine Ausgabe von PowerShell." : error);
+            throw new InvalidOperationException(string.IsNullOrEmpty(error) ? "No output from PowerShell." : error);
         return output[start..];
     }
 

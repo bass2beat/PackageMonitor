@@ -58,7 +58,7 @@ public sealed class AppWorkloadMonitor : IAsyncDisposable
     public void Start()
     {
         if (_cts is not null)
-            throw new InvalidOperationException("Monitor läuft bereits.");
+            throw new InvalidOperationException("Monitor is already running.");
         _cts = new CancellationTokenSource();
         var ct = _cts.Token;
         _consumeTask = Task.Run(() => ConsumeAsync(ct), ct);
@@ -129,10 +129,10 @@ public sealed class AppWorkloadMonitor : IAsyncDisposable
                     IsSynthetic = true,
                     Severity = LogSeverity.Warning,
                     Message = s.Info.WasTruncation
-                        ? "──── Datei wurde gekürzt – Lesen ab Position 0 ────"
-                        : $"──── Rollover: alte Datei bis zum Ende gelesen ({Formatting.FormatBytes(s.Info.OldFileBytesRead)})"
-                          + (s.Info.RolledOverTo is null ? "" : $", alte Datei: {Path.GetFileName(s.Info.RolledOverTo)}")
-                          + " – weiter mit neuer Datei ab Position 0; laufende Downloads werden weiterverfolgt ────",
+                        ? "──── File was truncated – reading from position 0 ────"
+                        : $"──── Rollover: old file read to the end ({Formatting.FormatBytes(s.Info.OldFileBytesRead)})"
+                          + (s.Info.RolledOverTo is null ? "" : $", old file: {Path.GetFileName(s.Info.RolledOverTo)}")
+                          + " – continuing with the new file from position 0; running downloads are still tracked ────",
                 }, entries);
                 break;
 

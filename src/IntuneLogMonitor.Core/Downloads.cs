@@ -19,12 +19,12 @@ public static class DownloadStatusExtensions
 {
     public static string ToDisplayText(this DownloadStatus status) => status switch
     {
-        DownloadStatus.Started => "Gestartet",
-        DownloadStatus.Running => "Läuft",
-        DownloadStatus.Completed => "Abgeschlossen",
-        DownloadStatus.Incomplete => "Unvollständig",
-        DownloadStatus.NoActivity => "Keine Aktivität",
-        DownloadStatus.Restarted => "Abgebrochen/Neu gestartet",
+        DownloadStatus.Started => "Started",
+        DownloadStatus.Running => "Running",
+        DownloadStatus.Completed => "Completed",
+        DownloadStatus.Incomplete => "Incomplete",
+        DownloadStatus.NoActivity => "No activity",
+        DownloadStatus.Restarted => "Cancelled/restarted",
         _ => status.ToString(),
     };
 
@@ -96,7 +96,7 @@ internal sealed class DownloadState
 
         var notes = new List<string>(Notes);
         if (AmbiguousAssignments > 0)
-            notes.Add($"{AmbiguousAssignments} Fortschrittszeile(n) nicht eindeutig – dem jüngsten offenen Download mit passender Größe zugeordnet");
+            notes.Add($"{AmbiguousAssignments} progress line(s) ambiguous – assigned to the most recent open download with matching size");
 
         return new DownloadSnapshot
         {

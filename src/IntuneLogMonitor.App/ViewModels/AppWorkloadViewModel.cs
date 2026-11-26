@@ -74,8 +74,8 @@ public sealed class AppWorkloadViewModel : ObservableObject, IAsyncDisposable
     public bool IsFiltered => _selectedDownload is not null;
 
     public string FilterText => _selectedDownload is { } d
-        ? $"Gefiltert auf Download #{d.Id} {(string.IsNullOrEmpty(d.AppName) ? d.AppId : d.AppName)} – {FilteredEntries.Count:N0} Zeile(n)"
-        : "Alle Zeilen";
+        ? $"Filtered to download #{d.Id} {(string.IsNullOrEmpty(d.AppName) ? d.AppId : d.AppName)} – {FilteredEntries.Count:N0} line(s)"
+        : "All lines";
 
     /// <summary>true: alle Zeilen zwischen Start- und Abschlusszeile zeigen, nicht nur die zugeordneten.</summary>
     public bool ShowContextRange
@@ -104,7 +104,7 @@ public sealed class AppWorkloadViewModel : ObservableObject, IAsyncDisposable
     public string SelectedEntryDetails => _selectedEntry is not { } e
         ? ""
         : $"#{e.Sequence}  {e.Timestamp:dd.MM.yyyy HH:mm:ss.fff}  Komponente: {e.Component}  Typ: {e.Severity}  Thread: {e.Thread}"
-          + (string.IsNullOrEmpty(e.File) ? "" : $"  Datei: {e.File}")
+          + (string.IsNullOrEmpty(e.File) ? "" : $"  File: {e.File}")
           + (e.DownloadId is { } id ? $"  → Download #{id}" : "")
           + Environment.NewLine + e.Message;
 
@@ -127,9 +127,9 @@ public sealed class AppWorkloadViewModel : ObservableObject, IAsyncDisposable
     }
 
     public string CountersText =>
-        $"{AllEntries.Count:N0} Zeilen angezeigt ({_totalEntriesRead:N0} gelesen) · {Downloads.Count} Downloads · " +
-        $"{Downloads.Count(d => d.Status is DownloadStatus.Running or DownloadStatus.Started)} aktiv · " +
-        $"{Downloads.Count(d => d.Status == DownloadStatus.Completed)} abgeschlossen · Rollover: {RolloverCount}";
+        $"{AllEntries.Count:N0} lines shown ({_totalEntriesRead:N0} read) · {Downloads.Count} downloads · " +
+        $"{Downloads.Count(d => d.Status is DownloadStatus.Running or DownloadStatus.Started)} active · " +
+        $"{Downloads.Count(d => d.Status == DownloadStatus.Completed)} completed · rollovers: {RolloverCount}";
 
     public void Start()
     {

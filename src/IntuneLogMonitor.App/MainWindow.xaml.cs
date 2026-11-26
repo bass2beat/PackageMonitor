@@ -18,13 +18,14 @@ public partial class MainWindow : Window
         Loaded += (_, _) => _appWorkload.Start();
     }
 
-    /// <summary>"PackageMonitor v0.2 by DPS" – die Versionsnummer kommt aus &lt;Version&gt; in der Projektdatei.</summary>
+    /// <summary>"PackageMonitor v0.2.1 by DPS" – the version comes from &lt;Version&gt; in the project file (patch number only if not 0).</summary>
     public static string WindowTitle
     {
         get
         {
             var v = typeof(MainWindow).Assembly.GetName().Version ?? new Version(0, 0);
-            return $"PackageMonitor v{v.Major}.{v.Minor} by DPS";
+            string number = v.Build > 0 ? $"{v.Major}.{v.Minor}.{v.Build}" : $"{v.Major}.{v.Minor}";
+            return $"PackageMonitor v{number} by DPS";
         }
     }
 

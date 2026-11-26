@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Delivery Optimization & Cache-Größen, darunter Kopfzeile der Download-Liste -->
+        <!-- Delivery Optimization & cache sizes, below: header of the download list -->
         <StackPanel Grid.Row="0">
             <Expander IsExpanded="True" Margin="0,0,0,8">
                 <Expander.Header>
@@ -41,12 +41,12 @@
             <DockPanel Margin="0,0,0,6">
                 <TextBlock DockPanel.Dock="Left" FontWeight="SemiBold" VerticalAlignment="Center" Text="Downloads (AppWorkload.log)" FontSize="14" />
                 <TextBlock DockPanel.Dock="Right" VerticalAlignment="Center" Foreground="Gray"
-                           Text="{Binding FilePath, StringFormat='Datei: {0}'}" TextTrimming="CharacterEllipsis" />
+                           Text="{Binding FilePath, StringFormat='File: {0}'}" TextTrimming="CharacterEllipsis" />
                 <Border />
             </DockPanel>
         </StackPanel>
 
-        <!-- Download-Liste -->
+        <!-- Download list -->
         <DataGrid Grid.Row="1" x:Name="DownloadGrid"
                   ItemsSource="{Binding Downloads}"
                   SelectedItem="{Binding SelectedDownload, Mode=TwoWay}"
@@ -69,12 +69,12 @@
             </DataGrid.RowStyle>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}" Width="40" ElementStyle="{StaticResource CellTextRight}" />
-                <DataGridTextColumn Header="Startzeit" Binding="{Binding StartTimeText}" Width="115" ElementStyle="{StaticResource CellText}" />
-                <DataGridTextColumn Header="App-ID" Binding="{Binding AppId}" Width="250" ElementStyle="{StaticResource CellText}" />
-                <DataGridTextColumn Header="App-Name" Binding="{Binding AppName}" Width="170" ElementStyle="{StaticResource CellText}" />
-                <DataGridTextColumn Header="Gesamtgröße" Binding="{Binding TotalText}" Width="95" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.TotalBytes" />
-                <DataGridTextColumn Header="Aktuell" Binding="{Binding CurrentText}" Width="95" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.CurrentBytes" />
-                <DataGridTemplateColumn Header="Fortschritt" Width="150" SortMemberPath="Percent">
+                <DataGridTextColumn Header="Start time" Binding="{Binding StartTimeText}" Width="135" ElementStyle="{StaticResource CellText}" />
+                <DataGridTextColumn Header="App ID" Binding="{Binding AppId}" Width="250" ElementStyle="{StaticResource CellText}" />
+                <DataGridTextColumn Header="App name" Binding="{Binding AppName}" Width="170" ElementStyle="{StaticResource CellText}" />
+                <DataGridTextColumn Header="Total size" Binding="{Binding TotalText}" Width="95" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.TotalBytes" />
+                <DataGridTextColumn Header="Current" Binding="{Binding CurrentText}" Width="95" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.CurrentBytes" />
+                <DataGridTemplateColumn Header="Progress" Width="150" SortMemberPath="Percent">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Margin="4,3">
@@ -99,8 +99,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Rate" Binding="{Binding RateText}" Width="95" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.BytesPerSecond" />
-                <DataGridTextColumn Header="Restzeit" Binding="{Binding RemainingText}" Width="70" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.Remaining" />
-                <DataGridTextColumn Header="Dauer" Binding="{Binding DurationText}" Width="70" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.Duration" />
+                <DataGridTextColumn Header="Remaining" Binding="{Binding RemainingText}" Width="70" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.Remaining" />
+                <DataGridTextColumn Header="Duration" Binding="{Binding DurationText}" Width="70" ElementStyle="{StaticResource CellTextRight}" SortMemberPath="Snapshot.Duration" />
                 <DataGridTemplateColumn Header="Status" Width="*" MinWidth="170" SortMemberPath="StatusText">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -139,19 +139,19 @@
 
         <GridSplitter Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Center" Height="4" Background="#E1DFDD" />
 
-        <!-- Filterleiste der Logansicht -->
+        <!-- Filter bar of the log view -->
         <DockPanel Grid.Row="3" Margin="0,4,0,4" LastChildFill="False">
             <TextBlock DockPanel.Dock="Left" FontWeight="SemiBold" FontSize="14" VerticalAlignment="Center" Text="Log" Margin="0,0,12,0" />
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="{Binding FilterText}" />
-            <Button DockPanel.Dock="Left" Margin="10,0,0,0" Padding="8,1" Content="Filter aufheben"
+            <Button DockPanel.Dock="Left" Margin="10,0,0,0" Padding="8,1" Content="Clear filter"
                     Command="{Binding ClearFilterCommand}" />
             <CheckBox DockPanel.Dock="Left" Margin="12,0,0,0" VerticalAlignment="Center"
                       IsEnabled="{Binding IsFiltered}" IsChecked="{Binding ShowContextRange}"
-                      Content="Alle Zeilen zwischen Start und Abschluss (inkl. fremder Zeilen)" />
-            <CheckBox DockPanel.Dock="Right" VerticalAlignment="Center" IsChecked="{Binding AutoScroll}" Content="Automatisch scrollen" />
+                      Content="All lines between start and completion (including other lines)" />
+            <CheckBox DockPanel.Dock="Right" VerticalAlignment="Center" IsChecked="{Binding AutoScroll}" Content="Auto-scroll" />
         </DockPanel>
 
-        <!-- Virtualisierte Logtabelle -->
+        <!-- Virtualized log table -->
         <DataGrid Grid.Row="4" x:Name="LogGrid"
                   ItemsSource="{Binding VisibleEntries}"
                   SelectedItem="{Binding SelectedEntry, Mode=TwoWay}"
@@ -185,20 +185,20 @@
                 </Style>
             </DataGrid.RowStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Zeit" Binding="{Binding Timestamp, StringFormat='dd.MM. HH:mm:ss.fff'}" Width="150" />
-                <DataGridTextColumn Header="Komponente" Binding="{Binding Component}" Width="140" />
-                <DataGridTextColumn Header="Typ" Binding="{Binding Severity}" Width="70" />
+                <DataGridTextColumn Header="Time" Binding="{Binding Timestamp, StringFormat='yyyy-MM-dd HH:mm:ss.fff'}" Width="150" />
+                <DataGridTextColumn Header="Component" Binding="{Binding Component}" Width="140" />
+                <DataGridTextColumn Header="Type" Binding="{Binding Severity}" Width="70" />
                 <DataGridTextColumn Header="DL" Binding="{Binding DownloadId}" Width="35" />
-                <DataGridTextColumn Header="Nachricht" Binding="{Binding MessageFirstLine}" Width="*" />
+                <DataGridTextColumn Header="Message" Binding="{Binding MessageFirstLine}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Details der ausgewählten Zeile (vollständige, ggf. mehrzeilige Nachricht) -->
+        <!-- Details of the selected line (full, possibly multi-line message) -->
         <TextBox Grid.Row="5" Margin="0,6,0,0" Height="80" IsReadOnly="True" TextWrapping="Wrap"
                  VerticalScrollBarVisibility="Auto" FontFamily="Consolas" FontSize="12"
                  Text="{Binding SelectedEntryDetails, Mode=OneWay}" />
 
-        <!-- Statusleiste -->
+        <!-- Status bar -->
         <DockPanel Grid.Row="6" Margin="0,6,0,0">
             <TextBlock DockPanel.Dock="Right" Foreground="Gray" Text="{Binding CountersText}" />
             <TextBlock Text="{Binding StatusText}" TextTrimming="CharacterEllipsis" Margin="0,0,12,0" />

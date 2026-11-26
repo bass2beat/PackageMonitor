@@ -70,42 +70,42 @@ public sealed class DeliveryOptimizationViewModel : ObservableObject, IAsyncDisp
     public bool HasReport => _report is not null;
 
     public string StateText =>
-        !_enabled ? "Abfrage deaktiviert"
-        : _isRefreshing ? "Wird abgefragt …"
+        !_enabled ? "Query disabled"
+        : _isRefreshing ? "Querying …"
         : _report is null ? ""
-        : $"Stand {_report.CollectedAt:HH:mm:ss}";
+        : $"As of {_report.CollectedAt:HH:mm:ss}";
 
     // --- Peers ---
     public string PeersConnectedText => _report is null ? "–" : $"{S.PeersConnected}";
-    public string PeersDetailText => _report is null ? "" : $"(davon bei aktiv ladenden Jobs: {S.PeersConnectedActiveJobs})";
+    public string PeersDetailText => _report is null ? "" : $"(of which on actively downloading jobs: {S.PeersConnectedActiveJobs})";
     public string PeerConnectionsText => _report is null ? "–"
-        : $"LAN {S.LanConnections} · Gruppe {S.GroupConnections} · Internet {S.InternetConnections} · Link-Local {S.LinkLocalConnections}";
+        : $"LAN {S.LanConnections} · Group {S.GroupConnections} · Internet {S.InternetConnections} · Link-Local {S.LinkLocalConnections}";
     public string SourceConnectionsText => _report is null ? "–"
         : $"HTTP/CDN {S.HttpConnections} · Connected Cache {S.CacheServerConnections}";
-    public string JobsText => _report is null ? "–" : $"{S.JobCount} (aktiv ladend: {S.ActiveJobCount})";
+    public string JobsText => _report is null ? "–" : $"{S.JobCount} (actively downloading: {S.ActiveJobCount})";
 
     // --- Datenmengen ---
     public string TotalDownloadedText => _report is null ? "–" : B(S.TotalBytesDownloaded);
     public string FromPeersText => _report is null ? "–"
         : $"{B(S.BytesFromPeers)}{(S.PeerSharePercent is { } p ? $" ({p:0.0} %)" : "")}";
     public string FromPeersDetailText => _report is null ? ""
-        : $"LAN {B(S.BytesFromLanPeers)} · Gruppe {B(S.BytesFromGroupPeers)} · Internet {B(S.BytesFromInternetPeers)} · Link-Local {B(S.BytesFromLinkLocalPeers)}";
+        : $"LAN {B(S.BytesFromLanPeers)} · Group {B(S.BytesFromGroupPeers)} · Internet {B(S.BytesFromInternetPeers)} · Link-Local {B(S.BytesFromLinkLocalPeers)}";
     public string FromHttpText => _report is null ? "–"
-        : $"{B(S.BytesFromHttp)} (davon Connected Cache {B(S.BytesFromCacheServer)})";
+        : $"{B(S.BytesFromHttp)} (of which Connected Cache {B(S.BytesFromCacheServer)})";
     public string UploadedText => _report is null ? "–" : B(S.BytesToPeers);
 
     // --- DO-Dienst gesamt (PerfSnap) ---
     public string PerfSnapText => _report?.PerfSnap is not { } p ? "–"
-        : $"Cache laut DO {B(p.CacheSizeBytes)} ({p.Files} Dateien) · {B(p.TotalBytesDownloaded)} geladen · {B(p.TotalBytesUploaded)} hochgeladen · Peers {p.NumberOfPeers} · Modus {p.DownloadMode}";
+        : $"Cache according to DO {B(p.CacheSizeBytes)} ({p.Files} files) · {B(p.TotalBytesDownloaded)} downloaded · {B(p.TotalBytesUploaded)} uploaded · peers {p.NumberOfPeers} · mode {p.DownloadMode}";
 
     /// <summary>Cache-Ordner, gemessen im eigenen (kürzeren) Intervall.</summary>
     public IReadOnlyList<FolderSize> Folders => _folders;
     public long FoldersTotalBytes => _folders.Sum(f => f.Bytes);
-    public string FoldersTotalText => _foldersAt is null ? "" : $"Summe belegt (lesbare Ordner): {B(FoldersTotalBytes)}";
-    public string FoldersStateText => _foldersAt is { } at ? $"Stand {at:HH:mm:ss}" : "Wird gemessen …";
+    public string FoldersTotalText => _foldersAt is null ? "" : $"Total used (readable folders): {B(FoldersTotalBytes)}";
+    public string FoldersStateText => _foldersAt is { } at ? $"as of {at:HH:mm:ss}" : "measuring …";
 
     public IReadOnlyList<DoJob> Jobs => _report?.Jobs ?? [];
-    public string JobsHeader => $"DO-Jobs ({Jobs.Count})";
+    public string JobsHeader => $"DO jobs ({Jobs.Count})";
 
     public string ErrorText => _report is null ? "" : string.Join(Environment.NewLine, _report.Errors);
     public bool HasErrors => _report is { Errors.Count: > 0 };
