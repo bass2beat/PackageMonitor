@@ -1,6 +1,6 @@
 # PackageMonitor
 
-**Watch Intune app downloads live on a Windows client.** (An app coded with AI)
+**Watch Intune app downloads live on a Windows client.** (An app coded with AI, use at your own risk!)
 
 PackageMonitor follows what the Intune Management Extension (IME) is downloading right now: which app, how far along, how fast, and where the data comes from. All of this is in the IME log files, but hard to read there.
 
