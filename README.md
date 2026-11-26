@@ -84,3 +84,15 @@ Oben in Bereich C (Standard: alle 30 s, Button „Aktualisieren“). Abgefragt w
 - **Inaktivität:** Geprüft wird sowohl mit der Log-Zeit jeder Zeile (funktioniert auch beim Einlesen alter Logs) als auch periodisch mit der Uhrzeit. Kommt danach wieder Fortschritt, wechselt der Download zurück auf „Läuft“.
 - **Phase 2** erwartet streng `bytes 0/<Gesamt>`. Eine Zeile mit einer App-ID, die einem *anderen* bekannten Download gehört, wird nicht fremd zugeordnet.
 - **NuGet:** `nuget.config` im Repo-Stamm trägt nuget.org als Quelle ein, da auf dieser Maschine nur die VS-Offline-Quelle registriert war.
+
+## Download
+
+Die fertige `PackageMonitor.exe` (Windows 10/11 x64, keine Installation nötig) liegt unter [Releases](https://github.com/bass2beat/PackageMonitor/releases).
+
+## Tests mit echten Logs
+
+`RealDataTests` prüfen die Auswertung gegen echte IME-Logs im Ordner `Real-Data-as-Template`. Diese Logs enthalten Geräte-, Benutzer- und Tenant-Daten und sind deshalb nicht im Repository. Fehlt der Ordner, bestehen die Tests ohne Prüfung.
+
+## Lizenz
+
+MIT – siehe [LICENSE](LICENSE).

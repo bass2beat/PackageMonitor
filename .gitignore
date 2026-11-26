@@ -9,3 +9,6 @@ publish/*
 !publish/PackageMonitor/
 publish/PackageMonitor/*
 !publish/PackageMonitor/LIESMICH.txt
+
+# Echte Kundenlogs – nur lokal, nie veröffentlichen
+Real-Data-as-Template/
